@@ -45,32 +45,32 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative flex h-[100svh] min-h-[640px] w-full flex-col justify-end pb-7 pt-20 px-6 sm:pb-10 sm:px-8 md:h-screen md:min-h-[700px] md:max-h-[1080px] md:flex-row md:items-center md:py-0 md:px-10 lg:px-16 overflow-hidden bg-black"
+      className="relative flex h-[100svh] min-h-[700px] w-full overflow-hidden bg-black md:h-screen md:min-h-[700px] md:max-h-[1080px] md:items-center"
       aria-label="Hero"
     >
       {/* =========================================================
-          HERO IMAGE
-          Mobile: Positioned in upper viewport (h-[60svh]) to prevent 2x zoom on landscape photo
-          Desktop: Right anchored full height (md:h-full md:w-[67%] lg:w-[63%] xl:w-[60%])
+          HERO PHOTOGRAPH — SINGLE CONTINUOUS CANVAS
+          Mobile: Full viewport (100svh) with art-directed 46% 32% crop
+          Desktop: Right anchored full height (md:w-[67%] lg:w-[63%] xl:w-[60%])
           ========================================================= */}
 
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 h-full w-full">
         <motion.div
           className="
             hero-image
             absolute
-            right-0
-            top-0
-            h-[60svh]
-            min-h-[380px]
+            inset-0
+            h-full
             w-full
-            md:h-full
+            md:left-auto
+            md:right-0
+            md:top-0
             md:w-[67%]
             lg:w-[63%]
             xl:w-[60%]
             will-change-transform
           "
-          initial={{ opacity: 0, scale: 1.02 }}
+          initial={{ opacity: 0, scale: 1.015 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 1.5,
@@ -85,37 +85,42 @@ export function Hero() {
             sizes="(max-width: 768px) 100vw, 60vw"
             className="
               object-cover
-              object-[50%_20%]
-              sm:object-[50%_25%]
+              object-[46%_32%]
               md:object-[72%_45%]
               lg:object-[74%_45%]
-              brightness-[1.06]
+              brightness-[1.05]
               contrast-[1.03]
               saturate-[1.02]
             "
           />
-
-          {/* Mobile bottom fade directly inside image container to blend into black page bg */}
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-44 z-10 md:hidden"
-            style={{
-              background:
-                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.92) 85%, black 100%)",
-            }}
-          />
-
-          {/* Mobile top fade for header integration */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-28 z-10 md:hidden"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, transparent 100%)",
-            }}
-          />
         </motion.div>
 
         {/* =======================================================
-            CINEMATIC IMAGE BLEND — DESKTOP
+            CINEMATIC GRADIENT — MOBILE ONLY
+            Seamless vertical & horizontal gradients protecting text
+            while keeping the bride naturally illuminated.
+            ======================================================= */}
+
+        {/* Mobile vertical cinematic gradient */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10 md:hidden"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.08) 30%, rgba(0,0,0,0.05) 48%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.94) 100%)",
+          }}
+        />
+
+        {/* Mobile horizontal text readability gradient */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10 md:hidden"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+
+        {/* =======================================================
+            CINEMATIC IMAGE BLEND — DESKTOP ONLY
             Black on left → transparent toward bride
             ======================================================= */}
 
@@ -156,8 +161,8 @@ export function Hero() {
       </div>
 
       {/* =========================================================
-          HERO CONTENT
-          Mobile: Positioned in lower dark area below bride portrait
+          HERO CONTENT — EDITORIAL OVERLAY
+          Mobile: Lower-left overlay (bottom 35-40% of screen)
           Desktop: Vertically centered editorial column
           ========================================================= */}
 
@@ -167,10 +172,17 @@ export function Hero() {
           z-20
           mx-auto
           flex
+          h-full
           w-full
           max-w-[1400px]
-          items-center
-          px-0
+          items-end
+          md:items-center
+          px-6
+          sm:px-10
+          lg:px-16
+          pb-[55px]
+          sm:pb-[70px]
+          md:pb-0
         "
       >
         <div
@@ -178,7 +190,6 @@ export function Hero() {
             w-full
             max-w-[580px]
             pl-0
-            sm:pl-2
             md:pl-4
           "
         >
@@ -188,7 +199,7 @@ export function Hero() {
 
           <motion.span
             className="
-              mb-2
+              mb-[18px]
               block
               text-[0.625rem]
               font-medium
@@ -216,14 +227,16 @@ export function Hero() {
           <motion.h1
             className={`
               ${playfair.className}
-              text-[clamp(2.65rem,11vw,3.5rem)]
+              mb-[12px]
+              text-[clamp(3rem,12.5vw,3.8rem)]
               font-normal
               uppercase
-              leading-[1.0]
+              leading-[0.98]
               tracking-[-0.02em]
               text-white
               sm:text-5xl
               sm:leading-[1.02]
+              md:mb-0
               md:text-6xl
               md:leading-[1.04]
               lg:text-[4.55rem]
@@ -249,12 +262,10 @@ export function Hero() {
           <motion.p
             className={`
               ${greatVibes.className}
-              mt-1.5
-              mb-5
-              sm:mt-2.5
-              sm:mb-7
+              mb-[28px]
+              sm:mb-[32px]
               block
-              text-[clamp(1.75rem,7vw,2.25rem)]
+              text-[clamp(1.85rem,7.5vw,2.35rem)]
               leading-snug
               text-[#C9A96E]
               sm:text-3xl
@@ -291,8 +302,8 @@ export function Hero() {
                 border
                 border-[#C9A96E]
                 bg-transparent
-                px-6
-                py-3
+                px-[26px]
+                py-[13px]
                 text-[0.625rem]
                 font-medium
                 uppercase
