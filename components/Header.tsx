@@ -75,22 +75,22 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden relative w-10 h-10 flex items-center justify-center"
+              className="lg:hidden relative w-10 h-10 flex items-center justify-end focus:outline-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileMenuOpen}
             >
-              <div className="flex flex-col items-end gap-1.5">
+              <div className="flex flex-col items-end gap-2">
                 <span
                   className={`block h-[1px] bg-ivory transition-all duration-300 ${
                     isMobileMenuOpen
-                      ? "w-6 rotate-45 translate-y-[4px]"
-                      : "w-6"
+                      ? "w-7 rotate-45 translate-y-[4.5px]"
+                      : "w-7"
                   }`}
                 />
                 <span
                   className={`block h-[1px] bg-ivory transition-all duration-300 ${
-                    isMobileMenuOpen ? "w-6 -rotate-45 -translate-y-[3px]" : "w-4"
+                    isMobileMenuOpen ? "w-7 -rotate-45 -translate-y-[4.5px]" : "w-5"
                   }`}
                 />
               </div>
