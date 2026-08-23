@@ -45,12 +45,12 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative flex h-[100svh] min-h-[700px] w-full overflow-hidden bg-black md:h-screen md:min-h-[700px] md:max-h-[1080px] md:items-center"
+      className="relative flex h-[100svh] min-h-[720px] w-full overflow-hidden bg-black md:h-screen md:min-h-[700px] md:max-h-[1080px] md:items-center"
       aria-label="Hero"
     >
       {/* =========================================================
           HERO PHOTOGRAPH — SINGLE CONTINUOUS CANVAS
-          Mobile: Full viewport (100svh) with art-directed 46% 32% crop
+          Mobile: Full viewport (100svh) with art-directed 58% 32% crop
           Desktop: Right anchored full height (md:w-[67%] lg:w-[63%] xl:w-[60%])
           ========================================================= */}
 
@@ -85,7 +85,7 @@ export function Hero() {
             sizes="(max-width: 768px) 100vw, 60vw"
             className="
               object-cover
-              object-[46%_32%]
+              object-[58%_32%]
               md:object-[72%_45%]
               lg:object-[74%_45%]
               brightness-[1.05]
@@ -97,7 +97,7 @@ export function Hero() {
 
         {/* =======================================================
             CINEMATIC GRADIENT — MOBILE ONLY
-            Seamless vertical & horizontal gradients protecting text
+            Light, controlled vertical & horizontal gradients protecting text
             while keeping the bride naturally illuminated.
             ======================================================= */}
 
@@ -106,7 +106,7 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 z-10 md:hidden"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.08) 30%, rgba(0,0,0,0.05) 48%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.94) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.10) 50%, rgba(0,0,0,0.60) 72%, rgba(0,0,0,0.92) 100%)",
           }}
         />
 
@@ -115,7 +115,7 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 z-10 md:hidden"
           style={{
             background:
-              "linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to right, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.08) 55%, transparent 100%)",
           }}
         />
 
@@ -162,7 +162,7 @@ export function Hero() {
 
       {/* =========================================================
           HERO CONTENT — EDITORIAL OVERLAY
-          Mobile: Lower-left overlay (bottom 35-40% of screen)
+          Mobile: Lower-left overlay (bottom ~38% of screen)
           Desktop: Vertically centered editorial column
           ========================================================= */}
 
@@ -181,7 +181,7 @@ export function Hero() {
           sm:px-10
           lg:px-16
           pb-[55px]
-          sm:pb-[70px]
+          sm:pb-[72px]
           md:pb-0
         "
       >
@@ -227,8 +227,8 @@ export function Hero() {
           <motion.h1
             className={`
               ${playfair.className}
-              mb-[12px]
-              text-[clamp(3rem,12.5vw,3.8rem)]
+              mb-[10px]
+              text-[clamp(3rem,12vw,3.7rem)]
               font-normal
               uppercase
               leading-[0.98]
@@ -302,7 +302,7 @@ export function Hero() {
                 border
                 border-[#C9A96E]
                 bg-transparent
-                px-[26px]
+                px-7
                 py-[13px]
                 text-[0.625rem]
                 font-medium
