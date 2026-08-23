@@ -45,13 +45,13 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative flex h-[100svh] min-h-[700px] w-full overflow-hidden bg-black md:h-screen md:min-h-[700px] md:max-h-[1080px] md:items-center"
+      className="relative flex h-[100svh] min-h-[640px] w-full flex-col justify-end pb-7 pt-20 px-6 sm:pb-10 sm:px-8 md:h-screen md:min-h-[700px] md:max-h-[1080px] md:flex-row md:items-center md:py-0 md:px-10 lg:px-16 overflow-hidden bg-black"
       aria-label="Hero"
     >
       {/* =========================================================
           HERO IMAGE
-          Mobile: Full viewport with art-directed 46% 32% focus (bride face, eyes, jewellery)
-          Desktop: Right anchored (md:w-[67%] lg:w-[63%] xl:w-[60%])
+          Mobile: Positioned in upper viewport (h-[60svh]) to prevent 2x zoom on landscape photo
+          Desktop: Right anchored full height (md:h-full md:w-[67%] lg:w-[63%] xl:w-[60%])
           ========================================================= */}
 
       <div className="pointer-events-none absolute inset-0">
@@ -61,14 +61,16 @@ export function Hero() {
             absolute
             right-0
             top-0
-            h-full
+            h-[60svh]
+            min-h-[380px]
             w-full
+            md:h-full
             md:w-[67%]
             lg:w-[63%]
             xl:w-[60%]
             will-change-transform
           "
-          initial={{ opacity: 0, scale: 1.015 }}
+          initial={{ opacity: 0, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 1.5,
@@ -83,13 +85,32 @@ export function Hero() {
             sizes="(max-width: 768px) 100vw, 60vw"
             className="
               object-cover
-              object-[46%_32%]
+              object-[50%_20%]
+              sm:object-[50%_25%]
               md:object-[72%_45%]
               lg:object-[74%_45%]
               brightness-[1.06]
               contrast-[1.03]
               saturate-[1.02]
             "
+          />
+
+          {/* Mobile bottom fade directly inside image container to blend into black page bg */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-44 z-10 md:hidden"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.92) 85%, black 100%)",
+            }}
+          />
+
+          {/* Mobile top fade for header integration */}
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-28 z-10 md:hidden"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, transparent 100%)",
+            }}
           />
         </motion.div>
 
@@ -132,28 +153,11 @@ export function Hero() {
               "linear-gradient(to top, rgba(0,0,0,0.75), transparent)",
           }}
         />
-
-        {/* =======================================================
-            CINEMATIC GRADIENT — MOBILE
-            Layered 5-stop gradient protecting text without darkening bride:
-            Top: 68% for header clarity
-            Middle: 12% keeping bride face & gold jewellery naturally illuminated
-            Text area: 58%
-            Bottom: 96% deep black
-            ======================================================= */}
-
-        <div
-          className="pointer-events-none absolute inset-0 z-10 md:hidden"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.12) 32%, rgba(0,0,0,0.12) 52%, rgba(0,0,0,0.58) 76%, rgba(0,0,0,0.96) 100%)",
-          }}
-        />
       </div>
 
       {/* =========================================================
           HERO CONTENT
-          Mobile: Anchored lower-left (bottom-[70px] left-6)
+          Mobile: Positioned in lower dark area below bride portrait
           Desktop: Vertically centered editorial column
           ========================================================= */}
 
@@ -166,26 +170,12 @@ export function Hero() {
           w-full
           max-w-[1400px]
           items-center
-          px-6
-          sm:px-10
-          lg:px-16
+          px-0
         "
       >
         <div
           className="
-            absolute
-            left-6
-            right-6
-            bottom-[70px]
-            sm:left-8
-            sm:right-8
-            sm:bottom-[75px]
-            md:relative
-            md:left-auto
-            md:right-auto
-            md:bottom-auto
-            w-auto
-            md:w-full
+            w-full
             max-w-[580px]
             pl-0
             sm:pl-2
@@ -198,7 +188,7 @@ export function Hero() {
 
           <motion.span
             className="
-              mb-[18px]
+              mb-2
               block
               text-[0.625rem]
               font-medium
@@ -226,7 +216,7 @@ export function Hero() {
           <motion.h1
             className={`
               ${playfair.className}
-              text-[clamp(3rem,12.5vw,3.8rem)]
+              text-[clamp(2.65rem,11vw,3.5rem)]
               font-normal
               uppercase
               leading-[1.0]
@@ -259,11 +249,12 @@ export function Hero() {
           <motion.p
             className={`
               ${greatVibes.className}
-              mt-[12px]
-              mb-[28px]
-              sm:mb-[30px]
+              mt-1.5
+              mb-5
+              sm:mt-2.5
+              sm:mb-7
               block
-              text-[clamp(1.85rem,7.5vw,2.35rem)]
+              text-[clamp(1.75rem,7vw,2.25rem)]
               leading-snug
               text-[#C9A96E]
               sm:text-3xl
@@ -300,8 +291,8 @@ export function Hero() {
                 border
                 border-[#C9A96E]
                 bg-transparent
-                px-[26px]
-                py-[14px]
+                px-6
+                py-3
                 text-[0.625rem]
                 font-medium
                 uppercase
