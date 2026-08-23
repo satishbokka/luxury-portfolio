@@ -45,12 +45,12 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative flex h-[100svh] min-h-[100svh] w-full items-end pb-12 pt-20 sm:pb-16 md:h-screen md:min-h-[700px] md:max-h-[1080px] md:items-center md:py-0 overflow-hidden bg-black"
+      className="relative flex h-[100svh] min-h-[700px] w-full items-end pb-12 pt-20 sm:pb-16 md:h-screen md:min-h-[700px] md:max-h-[1080px] md:items-center md:py-0 overflow-hidden bg-black"
       aria-label="Hero"
     >
       {/* =========================================================
           HERO IMAGE
-          Mobile: Full viewport with art-directed 68% 35% focus
+          Mobile: Full viewport with art-directed 40% 38% focus (bride face & jewellery)
           Desktop: Right anchored (md:w-[67%] lg:w-[63%] xl:w-[60%])
           ========================================================= */}
 
@@ -68,7 +68,7 @@ export function Hero() {
             xl:w-[60%]
             will-change-transform
           "
-          initial={{ opacity: 0, scale: 1.03 }}
+          initial={{ opacity: 0, scale: 1.015 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 1.5,
@@ -83,7 +83,7 @@ export function Hero() {
             sizes="(max-width: 768px) 100vw, 60vw"
             className="
               object-cover
-              object-[68%_35%]
+              object-[40%_38%]
               md:object-[72%_45%]
               lg:object-[74%_45%]
               brightness-[1.06]
@@ -135,18 +135,18 @@ export function Hero() {
 
         {/* =======================================================
             CINEMATIC GRADIENT — MOBILE
-            Layered 5-stop gradient:
-            Top: dark for logo/hamburger
-            Middle: bride face & jewellery warm and visible
-            Lower: dark behind text
-            Bottom: deep black transition
+            Layered 5-stop gradient protecting text without darkening bride:
+            Top: 62% for header clarity
+            Middle: 15% - 18% keeping bride face & gold jewellery bright
+            Text area: 55%
+            Bottom: 96% deep black
             ======================================================= */}
 
         <div
           className="pointer-events-none absolute inset-0 z-10 md:hidden"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 30%, rgba(0,0,0,0.28) 48%, rgba(0,0,0,0.78) 72%, rgba(0,0,0,0.98) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.15) 32%, rgba(0,0,0,0.18) 50%, rgba(0,0,0,0.55) 72%, rgba(0,0,0,0.96) 100%)",
           }}
         />
       </div>
