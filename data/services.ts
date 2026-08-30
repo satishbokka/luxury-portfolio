@@ -79,11 +79,11 @@ export const services: Service[] = [
     slug: "event-photography",
   },
   {
-    id: "fashion",
-    title: "Fashion Photography",
-    subtitle: "Where Art Meets Style",
+    id: "editorial",
+    title: "Editorial Photography",
+    subtitle: "Where Vision Meets Craft",
     description:
-      "Fashion photography demands a unique blend of technical precision and creative vision. We collaborate with designers, stylists, and models to produce editorial imagery that commands attention and tells a story through fabric, form, and light.",
+      "Editorial photography demands a unique blend of technical precision and creative vision. We collaborate with designers, stylists, and subjects to produce imagery that commands attention and tells a story through light, composition, and authentic expression.",
     includes: [
       "Creative direction",
       "Studio or on-location",
@@ -93,7 +93,7 @@ export const services: Service[] = [
     ],
     image:
       "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
-    slug: "fashion-photography",
+    slug: "editorial-photography",
   },
   {
     id: "custom",

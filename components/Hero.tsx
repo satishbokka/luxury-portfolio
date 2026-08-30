@@ -106,7 +106,7 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 z-10 md:hidden"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.10) 50%, rgba(0,0,0,0.60) 72%, rgba(0,0,0,0.92) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.10) 50%, rgba(0,0,0,0.60) 72%, rgba(0,0,0,0.92) 100%)",
           }}
         />
 

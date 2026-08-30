@@ -34,6 +34,60 @@ export async function generateMetadata({
   };
 }
 
+function renderContent(content: string) {
+  const blocks = content.split("\n\n").filter(Boolean);
+
+  return blocks.map((block, i) => {
+    // Heading
+    if (block.startsWith("## ")) {
+      return (
+        <h2
+          key={i}
+          className="font-[family-name:var(--font-playfair)] text-2xl text-ivory mt-12 mb-4"
+        >
+          {block.replace("## ", "")}
+        </h2>
+      );
+    }
+
+    // Bold-only lines (e.g. **Light quality.**)
+    if (block.startsWith("**") && block.endsWith("**")) {
+      return (
+        <p key={i} className="text-body font-medium text-ivory/80">
+          {block.replace(/\*\*/g, "")}
+        </p>
+      );
+    }
+
+    // Parse inline bold and italic within regular paragraphs
+    const parts = block.split(/(\*\*[^*]+\*\*)/g);
+    const hasInlineBold = parts.length > 1;
+
+    if (hasInlineBold) {
+      return (
+        <p key={i} className="text-body leading-relaxed">
+          {parts.map((part, j) => {
+            if (part.startsWith("**") && part.endsWith("**")) {
+              return (
+                <strong key={j} className="text-ivory/80 font-medium">
+                  {part.replace(/\*\*/g, "")}
+                </strong>
+              );
+            }
+            return <span key={j}>{part}</span>;
+          })}
+        </p>
+      );
+    }
+
+    return (
+      <p key={i} className="text-body leading-relaxed">
+        {block}
+      </p>
+    );
+  });
+}
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const postIndex = blogPosts.findIndex((p) => p.slug === slug);
@@ -47,11 +101,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const nextPost =
     postIndex < blogPosts.length - 1 ? blogPosts[postIndex + 1] : null;
 
-  // Parse content into paragraphs and headings
-  const contentBlocks = post.content.split("\n\n").filter(Boolean);
-
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt,
+            image: post.coverImage,
+            datePublished: post.date,
+            author: {
+              "@type": "Person",
+              name: post.author,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: siteConfig.name,
+              url: siteConfig.url,
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `${siteConfig.url}/blog/${slug}`,
+            },
+          }),
+        }}
+      />
+
       {/* Cover Image */}
       <section className="relative pt-20 md:pt-24">
         <div className="relative aspect-[21/9] md:aspect-[3/1] overflow-hidden">
@@ -97,39 +176,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
+            {/* Lead paragraph */}
+            <p className="text-body-lg mb-8 border-l-2 border-champagne/30 pl-6">
+              {post.excerpt}
+            </p>
+
             <div className="prose-custom space-y-6">
-              {contentBlocks.map((block, i) => {
-                if (block.startsWith("## ")) {
-                  return (
-                    <h2
-                      key={i}
-                      className="font-[family-name:var(--font-playfair)] text-2xl text-ivory mt-12 mb-4"
-                    >
-                      {block.replace("## ", "")}
-                    </h2>
-                  );
-                }
-                if (block.startsWith("**") && block.endsWith("**")) {
-                  return (
-                    <p key={i} className="text-body font-medium text-ivory/80">
-                      {block.replace(/\*\*/g, "")}
-                    </p>
-                  );
-                }
-                return (
-                  <p key={i} className="text-body leading-relaxed">
-                    {block}
-                  </p>
-                );
-              })}
+              {renderContent(post.content)}
             </div>
           </ScrollReveal>
 
-          {/* Divider */}
-          <div className="border-t border-white/10 mt-16 pt-12" />
+          {/* Share / Tags area */}
+          <div className="border-t border-white/10 mt-16 pt-8 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="text-[0.6rem] tracking-[0.15em] uppercase text-silver/60">
+                Category
+              </span>
+              <span className="text-[0.7rem] tracking-[0.1em] uppercase text-champagne/70 border border-champagne/20 px-3 py-1">
+                {post.category}
+              </span>
+            </div>
+            <Link
+              href="/blog"
+              className="text-[0.6875rem] tracking-[0.15em] uppercase text-silver hover:text-champagne transition-colors duration-300"
+            >
+              All Articles
+            </Link>
+          </div>
 
           {/* Navigation */}
-          <nav className="flex items-center justify-between pb-24" aria-label="Blog post navigation">
+          <nav className="flex items-center justify-between py-12" aria-label="Blog post navigation">
             {prevPost ? (
               <Link
                 href={`/blog/${prevPost.slug}`}

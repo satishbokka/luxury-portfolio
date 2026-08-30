@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { BackToTop } from "@/components/BackToTop";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { siteConfig } from "@/data/site";
 
@@ -52,13 +53,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} antialiased`}
+      className={`${playfair.variable} ${inter.variable} ${greatVibes.variable} antialiased`}
     >
       <body className="min-h-screen bg-noir text-ivory">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-6 focus:py-3 focus:bg-champagne focus:text-noir focus:text-sm focus:font-medium focus:tracking-wide"
+        >
+          Skip to main content
+        </a>
         <CustomCursor />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );

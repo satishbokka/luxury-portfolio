@@ -10,7 +10,7 @@ export function HomeCTA() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1920&q=80"
           alt=""
           fill
           className="object-cover"

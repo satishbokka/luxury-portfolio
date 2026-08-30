@@ -297,8 +297,11 @@ export default function ContactPage() {
                         <option value="event" className="bg-noir">
                           Event
                         </option>
-                        <option value="fashion" className="bg-noir">
-                          Fashion
+                        <option value="bridal" className="bg-noir">
+                          Bridal
+                        </option>
+                        <option value="editorial" className="bg-noir">
+                          Editorial
                         </option>
                         <option value="custom" className="bg-noir">
                           Custom Session

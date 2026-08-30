@@ -13,7 +13,7 @@ export function AboutPreview() {
           <ScrollReveal direction="left">
             <div className="relative aspect-[3/4] overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=85"
+                src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=85"
                 alt="Photographer at work in natural setting"
                 fill
                 className="object-cover"
@@ -34,7 +34,7 @@ export function AboutPreview() {
                 the Lens
               </h2>
               <p className="text-body-lg mt-6">
-                With over eight years of experience across weddings, portraits,
+                With years of experience across weddings, portraits,
                 and editorial work, I&apos;ve learned that the most powerful photographs
                 are the ones that feel true.
               </p>
@@ -45,19 +45,16 @@ export function AboutPreview() {
                 image a shared story.
               </p>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10 pt-10 border-t border-white/10">
+              {/* Approach Pillars */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 pt-10 border-t border-white/10">
                 {[
-                  { value: "150+", label: "Weddings" },
-                  { value: "500+", label: "Sessions" },
-                  { value: "8+", label: "Years" },
-                  { value: "12+", label: "Cities" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <p className="font-[family-name:var(--font-playfair)] text-3xl text-champagne">
-                      {stat.value}
-                    </p>
-                    <p className="text-body-sm mt-1">{stat.label}</p>
+                  { icon: "◈", label: "Authentic Storytelling" },
+                  { icon: "◇", label: "Natural Light" },
+                  { icon: "○", label: "Timeless Editing" },
+                ].map((pillar) => (
+                  <div key={pillar.label} className="flex items-center gap-3">
+                    <span className="text-champagne text-lg">{pillar.icon}</span>
+                    <p className="text-body-sm !text-ivory/70">{pillar.label}</p>
                   </div>
                 ))}
               </div>

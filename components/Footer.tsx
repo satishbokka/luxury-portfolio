@@ -104,18 +104,16 @@ export function Footer() {
             {siteConfig.copyright}
           </p>
           <div className="flex items-center gap-6">
-            <Link
-              href="#"
-              className="text-body-sm text-silver/60 hover:text-silver transition-colors"
+            <span
+              className="text-body-sm text-silver/60 hover:text-silver transition-colors cursor-default"
             >
               Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-body-sm text-silver/60 hover:text-silver transition-colors"
+            </span>
+            <span
+              className="text-body-sm text-silver/60 hover:text-silver transition-colors cursor-default"
             >
               Terms
-            </Link>
+            </span>
           </div>
         </div>
       </div>

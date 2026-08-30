@@ -21,7 +21,7 @@ export default function AboutPage() {
             <ScrollReveal direction="left">
               <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=900&q=85"
+                  src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85"
                   alt={`${siteConfig.photographer} — photographer`}
                   fill
                   className="object-cover"
@@ -94,28 +94,43 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Experience Stats */}
+      {/* Approach Pillars (replaces invented statistics) */}
       <section className="py-24 md:py-32 bg-noir">
         <div className="mx-auto max-w-[1400px] px-6 md:px-10">
           <ScrollReveal>
             <SectionHeading
-              label="Experience"
-              title="Years of Craft"
+              label="Approach"
+              title="How We Work"
             />
           </ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-4xl mx-auto">
             {[
-              { value: "150+", label: "Weddings Photographed" },
-              { value: "500+", label: "Sessions Completed" },
-              { value: "8+", label: "Years of Experience" },
-              { value: "12+", label: "Cities Worldwide" },
-            ].map((stat, index) => (
-              <ScrollReveal key={stat.label} delay={index * 0.1}>
+              {
+                title: "Observe",
+                description: "We arrive early, study the light, understand the space, and prepare with intention before ever raising a camera.",
+              },
+              {
+                title: "Connect",
+                description: "Every session begins with conversation. Trust is the foundation of authentic photography — we build it before we shoot.",
+              },
+              {
+                title: "Refine",
+                description: "Each image is individually processed with care — enhancing what was already there, never fabricating or over-editing.",
+              },
+            ].map((pillar, index) => (
+              <ScrollReveal key={pillar.title} delay={index * 0.15}>
                 <div className="text-center">
-                  <p className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl text-champagne">
-                    {stat.value}
+                  <div className="w-12 h-12 mx-auto mb-6 flex items-center justify-center border border-champagne/30 text-champagne">
+                    <span className="font-[family-name:var(--font-playfair)] text-lg">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className="font-[family-name:var(--font-playfair)] text-xl text-ivory mb-3">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-body-sm">
+                    {pillar.description}
                   </p>
-                  <p className="text-body-sm mt-2">{stat.label}</p>
                 </div>
               </ScrollReveal>
             ))}
