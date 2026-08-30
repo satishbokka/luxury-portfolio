@@ -3,29 +3,37 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { Playfair_Display, Great_Vibes } from "next/font/google";
 import { Button } from "@/components/ui/Button";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
+/*
+  Fonts are declared once in app/layout.tsx as CSS variables:
+    --font-playfair  (Playfair Display)
+    --font-script    (Great Vibes)
+  We consume them here via font-family utilities to avoid duplicate
+  next/font/google instances that break the production build.
+*/
 
-const greatVibes = Great_Vibes({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-});
+const playfairClass = "font-[family-name:var(--font-playfair)]";
+const scriptClass = "font-[family-name:var(--font-script)]";
 
-/* New cinematic palace / pavilion wedding image */
+/*
+  NOTE: shouldReduceMotion is null on server, boolean on client.
+  We NEVER pass `initial={shouldReduceMotion ? false : {...}}` because
+  that produces different initial values (object vs false) between SSR
+  and the first client render, causing a React hydration mismatch.
+
+  Instead: always provide the same object for `initial`.
+  Set duration to 0 via `d=0` when reduced motion is preferred so
+  animations are instantaneous rather than skipped (no SSR diff).
+*/
+
+/* Palace/pavilion wedding photograph — golden hour */
 const HERO_IMAGE = "/images/hero/palace-wedding.jpg";
 
 /* ================================================================
    MOBILE HERO — Premium Editorial Composition
-   Header → Full-width photograph (55svh) with bottom-to-black fade
+   Header → Full-width photograph (55vh) with bottom-to-black fade
    → Clean dark section with typography and CTA
-   No text over busy part of image. Image and text each have room.
    ================================================================ */
 
 function MobileHero() {
@@ -34,21 +42,19 @@ function MobileHero() {
 
   return (
     <section
-      className="relative flex flex-col w-full bg-black md:hidden"
-      style={{ minHeight: "100svh" }}
+      className="relative flex flex-col w-full min-h-screen bg-black md:hidden"
       aria-label="Hero"
     >
       {/* ─── CINEMATIC PHOTOGRAPH ─────────────────────────────── */}
       <motion.div
-        className="relative w-full overflow-hidden flex-shrink-0"
-        style={{ height: "clamp(340px, 55svh, 530px)" }}
-        initial={shouldReduceMotion ? false : { opacity: 0 }}
+        className="relative w-full overflow-hidden flex-shrink-0 h-[clamp(340px,55vh,530px)]"
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0 * d, ease: "easeOut" }}
       >
         <motion.div
           className="absolute inset-0"
-          initial={shouldReduceMotion ? false : { scale: 1.04 }}
+          initial={{ scale: 1.04 }}
           animate={{ scale: 1.0 }}
           transition={{ duration: 1.8 * d, ease: [0.25, 0.1, 0.25, 1] }}
         >
@@ -91,35 +97,27 @@ function MobileHero() {
           paddingLeft: "clamp(24px, 7vw, 44px)",
           paddingRight: "clamp(24px, 7vw, 44px)",
           paddingTop: "clamp(26px, 5vw, 38px)",
-          paddingBottom: "clamp(40px, 8svh, 64px)",
+          paddingBottom: "clamp(40px, 8vh, 64px)",
         }}
       >
         {/* Gold rule accent */}
         <motion.div
-          className="bg-[#C9A96E] mb-5"
-          style={{ width: "32px", height: "1px" }}
-          initial={shouldReduceMotion ? false : { scaleX: 0, opacity: 0 }}
+          className="w-8 h-px bg-[#C9A96E] mb-5"
+          style={{ transformOrigin: "left" }}
+          initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
           transition={{
             delay: 0.35 * d,
             duration: 0.5 * d,
             ease: "easeOut",
           }}
-          aria-hidden
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore — motion div style, transformOrigin via style prop
-          // Using inline style below to avoid TS issue with custom motion props
+          aria-hidden="true"
         />
 
         {/* Label */}
         <motion.span
-          className="block font-medium uppercase text-[#C9A96E]"
-          style={{
-            fontSize: "clamp(0.58rem, 2.4vw, 0.68rem)",
-            letterSpacing: "0.3em",
-            marginBottom: "clamp(14px, 3vw, 20px)",
-          }}
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+          className="block font-medium uppercase text-[#C9A96E] text-[clamp(0.58rem,2.4vw,0.68rem)] tracking-[0.3em] mb-[clamp(14px,3vw,20px)]"
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.48 * d, duration: 0.5 * d, ease: "easeOut" }}
         >
@@ -128,14 +126,8 @@ function MobileHero() {
 
         {/* Heading */}
         <motion.h1
-          className={`${playfair.className} font-normal uppercase text-[#F5F0EB]`}
-          style={{
-            fontSize: "clamp(2.9rem, 12.5vw, 3.9rem)",
-            lineHeight: 0.96,
-            letterSpacing: "-0.02em",
-            marginBottom: "clamp(14px, 3vw, 20px)",
-          }}
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          className={`${playfairClass} font-normal uppercase text-[#F5F0EB] text-[clamp(2.9rem,12.5vw,3.9rem)] leading-[0.96] tracking-[-0.02em] mb-[clamp(14px,3vw,20px)]`}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
             delay: 0.62 * d,
@@ -150,13 +142,8 @@ function MobileHero() {
 
         {/* Script tagline */}
         <motion.p
-          className={`${greatVibes.className} text-[#C9A96E]`}
-          style={{
-            fontSize: "clamp(1.75rem, 7.5vw, 2.3rem)",
-            lineHeight: 1.3,
-            marginBottom: "clamp(28px, 5.5vw, 40px)",
-          }}
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+          className={`${scriptClass} text-[#C9A96E] text-[clamp(1.75rem,7.5vw,2.3rem)] leading-[1.3] mb-[clamp(28px,5.5vw,40px)]`}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.82 * d, duration: 0.5 * d, ease: "easeOut" }}
         >
@@ -165,7 +152,7 @@ function MobileHero() {
 
         {/* CTA */}
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0 * d, duration: 0.5 * d, ease: "easeOut" }}
         >
@@ -176,23 +163,19 @@ function MobileHero() {
               border-[#C9A96E]
               bg-transparent
               text-[#F5F0EB]
+              text-[0.63rem]
               font-medium
               uppercase
               tracking-[0.22em]
+              px-[clamp(22px,5vw,30px)]
+              py-[13px]
+              min-h-[48px]
               transition-all
               duration-300
               hover:bg-[#C9A96E]
               hover:text-black
               w-fit
             "
-            style={{
-              fontSize: "0.63rem",
-              paddingInline: "clamp(22px, 5vw, 30px)",
-              paddingBlock: "13px",
-              minHeight: "48px",
-              display: "inline-flex",
-              alignItems: "center",
-            }}
           >
             VIEW PORTFOLIO
           </Button>
@@ -377,17 +360,7 @@ function DesktopHero() {
 
           {/* MAIN HEADING */}
           <motion.h1
-            className={`
-              ${playfair.className}
-              font-normal
-              uppercase
-              tracking-[-0.02em]
-              text-white
-            `}
-            style={{
-              fontSize: "clamp(3.4rem, 5vw, 5rem)",
-              lineHeight: 1.02,
-            }}
+            className={`${playfairClass} font-normal uppercase tracking-[-0.02em] text-white text-[clamp(3.4rem,5vw,5rem)] leading-[1.02]`}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -403,14 +376,7 @@ function DesktopHero() {
 
           {/* SCRIPT TAGLINE */}
           <motion.p
-            className={`
-              ${greatVibes.className}
-              mt-5
-              mb-10
-              leading-snug
-              text-[#C9A96E]
-            `}
-            style={{ fontSize: "clamp(2rem, 2.8vw, 2.7rem)" }}
+            className={`${scriptClass} mt-5 mb-10 leading-snug text-[#C9A96E] text-[clamp(2rem,2.8vw,2.7rem)]`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
