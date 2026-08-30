@@ -18,118 +18,128 @@ const greatVibes = Great_Vibes({
   display: "swap",
 });
 
+/* New cinematic palace / pavilion wedding image */
+const HERO_IMAGE = "/images/hero/palace-wedding.jpg";
+
 /* ================================================================
-   MOBILE HERO — Luxury Editorial Reveal
-   A black canvas with the photograph displayed as an editorial card,
-   and typography in its own clean space below.
+   MOBILE HERO — Premium Editorial Composition
+   Header → Full-width photograph (55svh) with bottom-to-black fade
+   → Clean dark section with typography and CTA
+   No text over busy part of image. Image and text each have room.
    ================================================================ */
 
 function MobileHero() {
   const shouldReduceMotion = useReducedMotion();
-
-  // If user prefers reduced motion, show everything immediately
-  const d = shouldReduceMotion ? 0 : 1; // animation duration multiplier
+  const d = shouldReduceMotion ? 0 : 1;
 
   return (
     <section
-      className="relative flex flex-col min-h-[100svh] w-full bg-black md:hidden overflow-hidden"
+      className="relative flex flex-col w-full bg-black md:hidden"
+      style={{ minHeight: "100svh" }}
       aria-label="Hero"
     >
-      {/* ─── Subtle decorative gold line ─── */}
+      {/* ─── CINEMATIC PHOTOGRAPH ─────────────────────────────── */}
       <motion.div
-        className="mx-auto mt-[88px] mb-[clamp(14px,3vw,22px)] w-[1px] h-[clamp(20px,5vw,32px)] bg-[#C9A96E]/40"
-        initial={shouldReduceMotion ? false : { scaleY: 0, opacity: 0 }}
-        animate={{ scaleY: 1, opacity: 1 }}
-        transition={{ delay: 0.1 * d, duration: 0.5 * d, ease: "easeOut" }}
-        style={{ transformOrigin: "top" }}
-      />
-
-      {/* ─── EDITORIAL PHOTOGRAPH ─── */}
-      <div className="relative mx-auto w-[clamp(300px,86vw,400px)]">
-        {/* Image frame with clip-path reveal */}
+        className="relative w-full overflow-hidden flex-shrink-0"
+        style={{ height: "clamp(340px, 55svh, 530px)" }}
+        initial={shouldReduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.0 * d, ease: "easeOut" }}
+      >
         <motion.div
-          className="relative w-full aspect-[3/4] overflow-hidden"
-          initial={
-            shouldReduceMotion
-              ? false
-              : { clipPath: "inset(0 0 100% 0)", opacity: 0 }
-          }
-          animate={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
-          transition={{
-            delay: 0.15 * d,
-            duration: 0.9 * d,
-            ease: [0.77, 0, 0.175, 1],
-          }}
+          className="absolute inset-0"
+          initial={shouldReduceMotion ? false : { scale: 1.04 }}
+          animate={{ scale: 1.0 }}
+          transition={{ duration: 1.8 * d, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          {/* Image with subtle scale animation */}
-          <motion.div
-            className="absolute inset-0"
-            initial={shouldReduceMotion ? false : { scale: 1.08 }}
-            animate={{ scale: 1 }}
-            transition={{
-              delay: 0.15 * d,
-              duration: 1.4 * d,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-          >
-            <Image
-              src="/images/hero/hero.png"
-              alt="Indian bride in elegant gold jewelry and traditional bridal styling"
-              fill
-              priority
-              sizes="86vw"
-              className="object-cover object-[60%_25%] brightness-[1.1] contrast-[1.02] saturate-[1.03]"
-            />
-          </motion.div>
-
-          {/* Very subtle bottom gradient — just enough to separate from text */}
-          <div
-            className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(0,0,0,0.5), transparent)",
-            }}
+          <Image
+            src={HERO_IMAGE}
+            alt="Indian bride in crimson lehenga and groom in sherwani standing together beneath an ornate marble pavilion at golden hour sunset"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: "50% 28%" }}
           />
         </motion.div>
 
-        {/* Thin champagne border accent — left side only for editorial feel */}
-        <motion.div
-          className="absolute left-0 top-[8%] bottom-[8%] w-[1px] bg-[#C9A96E]/25 -translate-x-[10px]"
-          initial={shouldReduceMotion ? false : { scaleY: 0, opacity: 0 }}
-          animate={{ scaleY: 1, opacity: 1 }}
-          transition={{
-            delay: 0.6 * d,
-            duration: 0.6 * d,
-            ease: "easeOut",
+        {/* Cinematic bottom-to-black fade — smooth editorial dissolve into text area */}
+        <div
+          className="absolute inset-x-0 bottom-0 pointer-events-none z-10"
+          style={{
+            height: "60%",
+            background:
+              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 25%, rgba(0,0,0,0.45) 60%, transparent 100%)",
           }}
-          style={{ transformOrigin: "top" }}
         />
-      </div>
 
-      {/* ─── EDITORIAL CONTENT ─── */}
-      <div className="flex-1 flex flex-col justify-center px-6 pt-[clamp(24px,5vw,36px)] pb-[clamp(32px,6vw,48px)]">
-        {/* Label */}
-        <motion.span
-          className="block text-[0.6rem] font-medium uppercase tracking-[0.3em] text-[#C9A96E] mb-[clamp(14px,3vw,20px)]"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+        {/* Subtle top fade for header integration */}
+        <div
+          className="absolute inset-x-0 top-0 pointer-events-none z-10"
+          style={{
+            height: "80px",
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.5), transparent)",
+          }}
+        />
+      </motion.div>
+
+      {/* ─── TYPOGRAPHY SECTION ──────────────────────────────── */}
+      <div
+        className="relative z-10 flex flex-col bg-black flex-1"
+        style={{
+          paddingLeft: "clamp(24px, 7vw, 44px)",
+          paddingRight: "clamp(24px, 7vw, 44px)",
+          paddingTop: "clamp(26px, 5vw, 38px)",
+          paddingBottom: "clamp(40px, 8svh, 64px)",
+        }}
+      >
+        {/* Gold rule accent */}
+        <motion.div
+          className="bg-[#C9A96E] mb-5"
+          style={{ width: "32px", height: "1px" }}
+          initial={shouldReduceMotion ? false : { scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
           transition={{
-            delay: 0.55 * d,
+            delay: 0.35 * d,
             duration: 0.5 * d,
             ease: "easeOut",
           }}
+          aria-hidden
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore — motion div style, transformOrigin via style prop
+          // Using inline style below to avoid TS issue with custom motion props
+        />
+
+        {/* Label */}
+        <motion.span
+          className="block font-medium uppercase text-[#C9A96E]"
+          style={{
+            fontSize: "clamp(0.58rem, 2.4vw, 0.68rem)",
+            letterSpacing: "0.3em",
+            marginBottom: "clamp(14px, 3vw, 20px)",
+          }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.48 * d, duration: 0.5 * d, ease: "easeOut" }}
         >
           CAPTURING REAL MOMENTS
         </motion.span>
 
         {/* Heading */}
         <motion.h1
-          className={`${playfair.className} text-[clamp(2.8rem,11vw,3.8rem)] font-normal uppercase leading-[0.94] tracking-[-0.02em] text-[#F5F0EB] mb-[clamp(12px,2.5vw,18px)]`}
+          className={`${playfair.className} font-normal uppercase text-[#F5F0EB]`}
+          style={{
+            fontSize: "clamp(2.9rem, 12.5vw, 3.9rem)",
+            lineHeight: 0.96,
+            letterSpacing: "-0.02em",
+            marginBottom: "clamp(14px, 3vw, 20px)",
+          }}
           initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            delay: 0.7 * d,
-            duration: 0.6 * d,
+            delay: 0.62 * d,
+            duration: 0.65 * d,
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
@@ -140,14 +150,15 @@ function MobileHero() {
 
         {/* Script tagline */}
         <motion.p
-          className={`${greatVibes.className} text-[clamp(1.6rem,6.5vw,2.2rem)] leading-snug text-[#C9A96E] mb-[clamp(24px,5vw,34px)]`}
+          className={`${greatVibes.className} text-[#C9A96E]`}
+          style={{
+            fontSize: "clamp(1.75rem, 7.5vw, 2.3rem)",
+            lineHeight: 1.3,
+            marginBottom: "clamp(28px, 5.5vw, 40px)",
+          }}
           initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 0.9 * d,
-            duration: 0.5 * d,
-            ease: "easeOut",
-          }}
+          transition={{ delay: 0.82 * d, duration: 0.5 * d, ease: "easeOut" }}
         >
           You live. We capture.
         </motion.p>
@@ -156,11 +167,7 @@ function MobileHero() {
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 1.05 * d,
-            duration: 0.5 * d,
-            ease: "easeOut",
-          }}
+          transition={{ delay: 1.0 * d, duration: 0.5 * d, ease: "easeOut" }}
         >
           <Button
             href="/portfolio"
@@ -168,19 +175,24 @@ function MobileHero() {
               border
               border-[#C9A96E]
               bg-transparent
-              px-7
-              py-[13px]
-              text-[0.6rem]
+              text-[#F5F0EB]
               font-medium
               uppercase
               tracking-[0.22em]
-              text-[#F5F0EB]
               transition-all
               duration-300
               hover:bg-[#C9A96E]
               hover:text-black
               w-fit
             "
+            style={{
+              fontSize: "0.63rem",
+              paddingInline: "clamp(22px, 5vw, 30px)",
+              paddingBlock: "13px",
+              minHeight: "48px",
+              display: "inline-flex",
+              alignItems: "center",
+            }}
           >
             VIEW PORTFOLIO
           </Button>
@@ -191,33 +203,35 @@ function MobileHero() {
 }
 
 /* ================================================================
-   DESKTOP HERO — Unchanged cinematic split layout
-   Image right, typography left, editorial gradients
+   DESKTOP HERO — Cinematic split: deep-black left + photograph right
+   Image right-anchored at ~60% width. Subtle parallax (desktop only).
    ================================================================ */
 
 function DesktopHero() {
   const heroRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (shouldReduceMotion) return;
+
     const handleScroll = () => {
       if (!heroRef.current) return;
-
       const scrolled = window.scrollY;
+      if (scrolled >= window.innerHeight) return;
+
       const img = heroRef.current.querySelector(
-        ".hero-image"
+        ".hero-parallax-img"
       ) as HTMLElement | null;
 
-      if (img && scrolled < window.innerHeight) {
-        img.style.transform = `scale(1.015) translateY(${scrolled * 0.05}px)`;
+      // Very subtle 0.04 factor keeps the couple firmly in frame
+      if (img) {
+        img.style.transform = `translateY(${scrolled * 0.04}px)`;
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [shouldReduceMotion]);
 
   return (
     <section
@@ -233,53 +247,45 @@ function DesktopHero() {
       <div className="pointer-events-none absolute inset-0 h-full w-full">
         <motion.div
           className="
-            hero-image
+            hero-parallax-img
             absolute
             inset-0
             h-full
             w-full
             md:left-auto
             md:right-0
-            md:top-0
-            md:w-[67%]
-            lg:w-[63%]
-            xl:w-[60%]
+            md:top-[-4%]
+            md:bottom-[-4%]
+            md:w-[62%]
+            lg:w-[60%]
+            xl:w-[58%]
             will-change-transform
           "
-          initial={{ opacity: 0, scale: 1.015 }}
+          initial={{ opacity: 0, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            duration: 1.5,
+            duration: 1.8,
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
           <Image
-            src="/images/hero/hero.png"
-            alt="Bridal portrait"
+            src={HERO_IMAGE}
+            alt="Indian bride in crimson lehenga and groom in sherwani holding hands beneath an ornate marble pavilion at golden-hour sunset"
             fill
             priority
-            sizes="60vw"
-            className="
-              object-cover
-              md:object-[72%_45%]
-              lg:object-[74%_45%]
-              brightness-[1.05]
-              contrast-[1.03]
-              saturate-[1.02]
-            "
+            sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 60vw, 62vw"
+            className="object-cover"
+            style={{ objectPosition: "50% 35%" }}
           />
         </motion.div>
 
-        {/* =======================================================
-            CINEMATIC IMAGE BLEND — DESKTOP ONLY
-            Black on left → transparent toward bride
-            ======================================================= */}
-
+        {/* Cinematic gradient — solid black left → transparent → palace image
+            Extended to 42% to protect text without obscuring the pavilion couple */}
         <div
           className="pointer-events-none absolute inset-0 z-10"
           style={{
             background:
-              "linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 16%, rgba(0,0,0,0.88) 27%, rgba(0,0,0,0.55) 39%, rgba(0,0,0,0.18) 52%, rgba(0,0,0,0) 67%)",
+              "linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 15%, rgba(0,0,0,0.88) 25%, rgba(0,0,0,0.58) 36%, rgba(0,0,0,0.20) 48%, rgba(0,0,0,0.04) 58%, rgba(0,0,0,0) 68%)",
           }}
         />
 
@@ -333,11 +339,21 @@ function DesktopHero() {
         <div
           className="
             w-full
-            max-w-[580px]
+            max-w-[520px]
+            xl:max-w-[560px]
             pl-0
             md:pl-4
           "
         >
+          {/* Gold accent rule */}
+          <motion.div
+            className="mb-6 h-[1px] w-8 bg-[#C9A96E]"
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ delay: 0.15, duration: 0.5, ease: "easeOut" }}
+            style={{ transformOrigin: "left" }}
+          />
+
           {/* LABEL */}
           <motion.span
             className="
@@ -352,7 +368,7 @@ function DesktopHero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 0.25,
+              delay: 0.28,
               duration: 0.6,
             }}
           >
@@ -363,19 +379,19 @@ function DesktopHero() {
           <motion.h1
             className={`
               ${playfair.className}
-              md:text-6xl
-              md:leading-[1.04]
-              lg:text-[4.55rem]
-              xl:text-[4.9rem]
               font-normal
               uppercase
               tracking-[-0.02em]
               text-white
             `}
+            style={{
+              fontSize: "clamp(3.4rem, 5vw, 5rem)",
+              lineHeight: 1.02,
+            }}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 0.4,
+              delay: 0.42,
               duration: 0.7,
               ease: [0.25, 0.1, 0.25, 1],
             }}
@@ -389,17 +405,16 @@ function DesktopHero() {
           <motion.p
             className={`
               ${greatVibes.className}
-              md:mt-4
-              md:mb-10
-              md:text-4xl
-              lg:text-[2.65rem]
+              mt-5
+              mb-10
               leading-snug
               text-[#C9A96E]
             `}
+            style={{ fontSize: "clamp(2rem, 2.8vw, 2.7rem)" }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 0.6,
+              delay: 0.62,
               duration: 0.6,
             }}
           >
@@ -411,7 +426,7 @@ function DesktopHero() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: 0.75,
+              delay: 0.80,
               duration: 0.6,
             }}
           >
